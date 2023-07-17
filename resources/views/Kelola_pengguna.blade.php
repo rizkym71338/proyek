@@ -19,6 +19,12 @@
                                 {{ session('success') }}
                             </div>
                         @endif
+                        @if (session()->has('error'))
+                            <div class="alert alert-danger alert-dismissible alert-info">
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                {{ session('error') }}
+                            </div>
+                        @endif
                         @error('username')
                             <div class="alert alert-danger alert-dismissible alert-info">
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>

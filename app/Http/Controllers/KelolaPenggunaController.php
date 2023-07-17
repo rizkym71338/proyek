@@ -22,8 +22,12 @@ class KelolaPenggunaController extends Controller
             'password' => 'required|min:5|max:20',
         ]);
         $validated['password'] = Hash::make($validated['password']);
-        User::create($validated);
-        return redirect('/kelola-pengguna')->with("success", "Berhasil Menambahkan Pengguna Baru!");
+        try {
+            User::create($validated);
+            return redirect('/kelola-pengguna')->with("success", "Berhasil Menambahkan Pengguna Baru!");
+        } catch (\Throwable $th) {
+            return redirect('/kelola-pengguna')->with("error", "Gagal Menambahkan Pengguna Baru!");
+        }
     }
 
     public function update(Request $request, User $user)
@@ -36,13 +40,21 @@ class KelolaPenggunaController extends Controller
         $validated = $request->validate($rules);
         $validated['password'] = Hash::make($validated['password']);
         if (!$request->password) $validated['password'] = $user->password;
-        User::where('id', $user->id)->update($validated);
-        return redirect('/kelola-pengguna')->with("success", "Berhasil Mengubah Pengguna !");
+        try {
+            User::where('id', $user->id)->update($validated);
+            return redirect('/kelola-pengguna')->with("success", "Berhasil Mengubah Pengguna !");
+        } catch (\Throwable $th) {
+            return redirect('/kelola-pengguna')->with("error", "Gagal Mengubah Pengguna !");
+        }
     }
 
     public function destroy(User $user)
     {
-        User::destroy($user->id);
-        return redirect('/kelola-pengguna')->with("success", "Berhasil Menghapus Pengguna !");
+        try {
+            User::destroy($user->id);
+            return redirect('/kelola-pengguna')->with("success", "Berhasil Menghapus Pengguna !");
+        } catch (\Throwable $th) {
+            return redirect('/kelola-pengguna')->with("error", "Gagal Menghapus Pengguna !");
+        }
     }
 }

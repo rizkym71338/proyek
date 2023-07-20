@@ -11,7 +11,7 @@ class KelolaPenggunaController extends Controller
     public function index()
     {
         $this->authorize("kelola_pengguna");
-        return view("kelola_pengguna", ["title" => "Kelola Pengguna", "users" => User::all()]);
+        return view("kelola_pengguna", ["title" => "Kelola Pengguna", "users" => User::latest()->get()]);
     }
 
     public function store(Request $request)

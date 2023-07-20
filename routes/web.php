@@ -1,6 +1,11 @@
 <?php
 
+use App\Http\Controllers\DataPenerimaanController;
+use App\Http\Controllers\DataPenjualanController;
 use App\Http\Controllers\KelolaPenggunaController;
+use App\Http\Controllers\LaporanPenerimaanController;
+use App\Http\Controllers\LaporanPenjualanController;
+use App\Http\Controllers\LaporanPersediaanController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,20 +33,20 @@ Route::post('/kelola-pengguna', [KelolaPenggunaController::class, 'store']);
 Route::put('/kelola-pengguna/{user}', [KelolaPenggunaController::class, 'update']);
 Route::delete('/kelola-pengguna/{user}', [KelolaPenggunaController::class, 'destroy']);
 
-Route::get('/data-penerimaan', function () {
-    return view('data_penerimaan', ["title" => "Data Penerimaan"]);
-})->middleware("auth");
-Route::get('/laporan-penerimaan', function () {
-    return view('laporan_penerimaan', ["title" => "Laporan Penerimaan"]);
-})->middleware("auth");
+Route::get('/data-penerimaan', [DataPenerimaanController::class, 'index'])->middleware("auth");
+Route::post('/data-penerimaan', [DataPenerimaanController::class, 'store']);
+Route::put('/data-penerimaan/{penerimaan}', [DataPenerimaanController::class, 'update']);
+Route::delete('/data-penerimaan/{penerimaan}', [DataPenerimaanController::class, 'destroy']);
 
-Route::get('/data-penjualan', function () {
-    return view('data_penjualan', ["title" => "Data Penjualan"]);
-})->middleware("auth");
-Route::get('/laporan-penjualan', function () {
-    return view('laporan_penjualan', ["title" => "Laporan Penjualan"]);
-})->middleware("auth");
+Route::get('/data-penjualan', [DataPenjualanController::class, 'index'])->middleware("auth");
+Route::post('/data-penjualan', [DataPenjualanController::class, 'store']);
+Route::put('/data-penjualan/{penjualan}', [DataPenjualanController::class, 'update']);
+Route::delete('/data-penjualan/{penjualan}', [DataPenjualanController::class, 'destroy']);
 
-Route::get('/laporan-persediaan', function () {
-    return view('laporan_persediaan', ["title" => "Laporan Persediaan"]);
-})->middleware("auth");
+Route::get('/laporan-penerimaan', [LaporanPenerimaanController::class, 'index'])->middleware("auth");
+Route::get('/laporan-penjualan', [LaporanPenjualanController::class, 'index'])->middleware("auth");
+Route::get('/laporan-persediaan', [LaporanPersediaanController::class, 'index'])->middleware("auth");
+
+Route::get('/laporan-penerimaan/cetak-pdf', [LaporanPenerimaanController::class, 'cetak_pdf'])->middleware("auth");
+Route::get('/laporan-penjualan/cetak-pdf', [LaporanPenjualanController::class, 'cetak_pdf'])->middleware("auth");
+Route::get('/laporan-persediaan/cetak-pdf', [LaporanPersediaanController::class, 'cetak_pdf'])->middleware("auth");

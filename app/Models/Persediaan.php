@@ -12,8 +12,7 @@ class Persediaan extends Model
 
     protected $fillable = [
         'tanggal',
-        'stok_awal',
-        'stok_akhir',
+        'stok_produk',
         'produk_masuk',
         'produk_keluar',
     ];

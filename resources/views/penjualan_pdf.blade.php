@@ -26,6 +26,7 @@
                     <th>No Kwitansi</th>
                     <th>Pembeli</th>
                     <th>Produk Keluar</th>
+                    <th>Satuan</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,6 +37,7 @@
                         <td>{{ $penjualan->no_kwitansi }}</td>
                         <td>{{ $penjualan->pembeli }}</td>
                         <td>{{ $penjualan->produk_keluar }}</td>
+                        <td>{{ $penjualan->satuan }}</td>
                     </tr>
                 @endforeach
             </tbody>

@@ -20,7 +20,7 @@ class LaporanPenjualanController extends Controller
             $data = Penjualan::latest()->whereBetween('tanggal', [$startDate, $endDate])->get();
         }
 
-        $this->authorize("penjualan");
+        $this->authorize("laporan-penjualan");
         return view("laporan_penjualan", [
             "title" => "Laporan penjualan",
             "penjualans" => $data,

@@ -15,10 +15,9 @@ return new class extends Migration
         Schema::create('persediaans', function (Blueprint $table) {
             $table->id();
             $table->timestamp("tanggal")->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->string("stok_awal");
             $table->string("produk_masuk");
             $table->integer("produk_keluar");
-            $table->string("stok_akhir");
+            $table->string("stok_produk");
             $table->timestamps();
         });
     }

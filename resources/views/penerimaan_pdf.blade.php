@@ -26,6 +26,7 @@
                     <th>Penerima</th>
                     <th>Pengirim</th>
                     <th>Produk Masuk</th>
+                    <th>Satuan</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,6 +37,7 @@
                         <td>{{ $penerimaan->penerima }}</td>
                         <td>{{ $penerimaan->pengirim }}</td>
                         <td>{{ $penerimaan->produk_masuk }}</td>
+                        <td>{{ $penerimaan->satuan }}</td>
                     </tr>
                 @endforeach
             </tbody>

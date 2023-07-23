@@ -20,7 +20,7 @@ class LaporanPersediaanController extends Controller
             $data = Persediaan::latest()->whereBetween('tanggal', [$startDate, $endDate])->get();
         }
 
-        $this->authorize("persediaan");
+        $this->authorize("laporan-persediaan");
         return view("laporan_persediaan", [
             "title" => "Laporan persediaan",
             "persediaans" => $data,

@@ -15,6 +15,7 @@ class Penjualan extends Model
         'no_kwitansi',
         'pembeli',
         'produk_keluar',
+        'satuan'
     ];
 
     public function getTanggalAttribute($value)

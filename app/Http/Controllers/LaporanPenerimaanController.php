@@ -21,7 +21,7 @@ class LaporanPenerimaanController extends Controller
             $data = Penerimaan::latest()->whereBetween('tanggal', [$startDate, $endDate])->get();
         }
 
-        $this->authorize("penerimaan");
+        $this->authorize("laporan-penerimaan");
         return view("laporan_penerimaan", [
             "title" => "Laporan Penerimaan",
             "penerimaans" => $data,

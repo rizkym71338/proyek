@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string("pengirim");
             $table->string("penerima");
             $table->integer("produk_masuk");
+            $table->string("satuan");
             $table->timestamps();
         });
     }

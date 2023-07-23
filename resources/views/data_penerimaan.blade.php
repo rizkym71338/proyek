@@ -42,6 +42,12 @@
                                 {{ $message }}
                             </div>
                         @enderror
+                        @error('satuan')
+                            <div class="alert alert-danger alert-dismissible alert-info">
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                {{ $message }}
+                            </div>
+                        @enderror
                         {{-- Modal Add --}}
                         <div class="modal fade" id="modal-add-penerimaan" tabindex="-1">
                             <div class="modal-dialog modal-dialog-scrollable">
@@ -69,6 +75,11 @@
                                                 <input type="number" class="form-control" id="produk_masuk"
                                                     name="produk_masuk" required>
                                             </div>
+                                            <div class="col-12 mb-3">
+                                                <label for="satuan" class="form-label">Satuan</label>
+                                                <input type="text" class="form-control" id="satuan" name="satuan"
+                                                    required>
+                                            </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
@@ -89,6 +100,7 @@
                                     <th scope="col">Penerima</th>
                                     <th scope="col">Pengirim</th>
                                     <th scope="col">Produk Masuk</th>
+                                    <th scope="col">Satuan</th>
                                     <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
@@ -100,6 +112,7 @@
                                         <td>{{ $penerimaan->penerima }}</td>
                                         <td>{{ $penerimaan->pengirim }}</td>
                                         <td>{{ $penerimaan->produk_masuk }}</td>
+                                        <td>{{ $penerimaan->satuan }}</td>
                                         <td>
                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                                 data-bs-target="#modal-edit-penerimaan-{{ $penerimaan->id }}">
@@ -176,6 +189,12 @@
                                                             <input type="number" class="form-control" id="produk_masuk"
                                                                 name="produk_masuk"
                                                                 value="{{ $penerimaan->produk_masuk }}" required>
+                                                        </div>
+                                                        <div class="col-12 mb-3">
+                                                            <label for="satuan" class="form-label">Satuan</label>
+                                                            <input type="text" class="form-control" id="satuan"
+                                                                name="satuan" value="{{ $penerimaan->satuan }}"
+                                                                required>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">

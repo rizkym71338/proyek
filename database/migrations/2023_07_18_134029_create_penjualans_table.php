@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string("no_kwitansi");
             $table->string("pembeli");
             $table->integer("produk_keluar");
+            $table->string("satuan");
             $table->timestamps();
         });
     }

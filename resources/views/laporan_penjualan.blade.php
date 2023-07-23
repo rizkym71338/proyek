@@ -43,6 +43,7 @@
                                     <th scope="col">No Kwitansi</th>
                                     <th scope="col">Pembeli</th>
                                     <th scope="col">Produk Keluar</th>
+                                    <th scope="col">Satuan</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -53,6 +54,7 @@
                                         <td>{{ $penjualan->no_kwitansi }}</td>
                                         <td>{{ $penjualan->pembeli }}</td>
                                         <td>{{ $penjualan->produk_keluar }}</td>
+                                        <td>{{ $penjualan->satuan }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

@@ -43,6 +43,7 @@
                                     <th scope="col">Penerima</th>
                                     <th scope="col">Pengirim</th>
                                     <th scope="col">Produk Masuk</th>
+                                    <th scope="col">Satuan</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -53,6 +54,7 @@
                                         <td>{{ $penerimaan->penerima }}</td>
                                         <td>{{ $penerimaan->pengirim }}</td>
                                         <td>{{ $penerimaan->produk_masuk }}</td>
+                                        <td>{{ $penerimaan->satuan }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

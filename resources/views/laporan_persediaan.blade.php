@@ -40,10 +40,9 @@
                                 <tr>
                                     <th scope="col">No</th>
                                     <th scope="col">Tanggal</th>
-                                    <th scope="col">Stok Awal</th>
                                     <th scope="col">Produk Masuk</th>
                                     <th scope="col">Produk Keluar</th>
-                                    <th scope="col">Stok Akhir</th>
+                                    <th scope="col">Stok Produk</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -51,10 +50,9 @@
                                     <tr>
                                         <th scope="row">{{ $loop->iteration }}</th>
                                         <td>{{ $persediaan->tanggal }}</td>
-                                        <td>{{ $persediaan->stok_awal }}</td>
                                         <td>{{ $persediaan->produk_masuk }}</td>
                                         <td>{{ $persediaan->produk_keluar }}</td>
-                                        <td>{{ $persediaan->stok_akhir }}</td>
+                                        <td>{{ $persediaan->stok_produk }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

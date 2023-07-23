@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DataPenerimaanController;
 use App\Http\Controllers\DataPenjualanController;
+use App\Http\Controllers\DataPersediaanController;
 use App\Http\Controllers\KelolaPenggunaController;
 use App\Http\Controllers\LaporanPenerimaanController;
 use App\Http\Controllers\LaporanPenjualanController;
@@ -42,6 +43,11 @@ Route::get('/data-penjualan', [DataPenjualanController::class, 'index'])->middle
 Route::post('/data-penjualan', [DataPenjualanController::class, 'store']);
 Route::put('/data-penjualan/{penjualan}', [DataPenjualanController::class, 'update']);
 Route::delete('/data-penjualan/{penjualan}', [DataPenjualanController::class, 'destroy']);
+
+Route::get('/data-persediaan', [DataPersediaanController::class, 'index'])->middleware("auth");
+Route::post('/data-persediaan', [DataPersediaanController::class, 'store']);
+Route::put('/data-persediaan/{persediaan}', [DataPersediaanController::class, 'update']);
+Route::delete('/data-persediaan/{persediaan}', [DataPersediaanController::class, 'destroy']);
 
 Route::get('/laporan-penerimaan', [LaporanPenerimaanController::class, 'index'])->middleware("auth");
 Route::get('/laporan-penjualan', [LaporanPenjualanController::class, 'index'])->middleware("auth");

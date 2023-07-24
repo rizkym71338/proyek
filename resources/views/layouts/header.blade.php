@@ -17,18 +17,6 @@
                         <h6>{{ auth()->user()->username }}</h6>
                         <span>{{ auth()->user()->role }}</span>
                     </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li>
-                        <form action="/logout" method="POST">
-                            @csrf
-                            <button type="submit" class="dropdown-item d-flex align-items-center" href="#">
-                                <i class="bi bi-box-arrow-right"></i>
-                                <span>Sign Out</span>
-                            </button>
-                        </form>
-                    </li>
                 </ul>
             </li>
         </ul>

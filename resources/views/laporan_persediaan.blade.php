@@ -29,7 +29,7 @@
                                 <a href="/laporan-persediaan/cetak-pdf?start_date={{ $start_date }}&end_date={{ $end_date }}"
                                     type="submit" class="btn btn-primary">
                                     <i class="bi bi-filetype-pdf me-1"></i>
-                                    Download PDF
+                                    Unduh PDF
                                 </a>
                             </div>
                         </form>

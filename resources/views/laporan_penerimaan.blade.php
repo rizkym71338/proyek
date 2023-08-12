@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="pagetitle">
-        <h1>Laporan Penerimaan</h1>
+        <h1>Laporan Penerimaan Produk</h1>
     </div>
 
     <section class="section">

@@ -84,7 +84,7 @@
             @csrf
             <button type="submit" class="btn btn-primary" style="width: 100%">
                 <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
+                <span>Logout</span>
             </button>
         </form>
     </div>

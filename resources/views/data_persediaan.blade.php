@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('content')
     <div class="pagetitle">
-        <h1>Data Persediaan</h1>
+        <h1>Data Persediaan Produk</h1>
     </div>
     <section class="section">
         <div class="row">
@@ -10,7 +10,7 @@
                     <div class="card-body">
                         <button type="button" data-bs-toggle="modal" data-bs-target="#modal-add-persediaan"
                             class="btn btn-primary my-3">
-                            <i class="bi bi-plus me-1"></i> Tambah Data Persediaan
+                            <i class="bi bi-plus me-1"></i> Add Data Persediaan
                         </button>
                         @if (session()->has('success'))
                             <div class="alert alert-success alert-dismissible alert-info">
@@ -49,7 +49,7 @@
                                     @csrf
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title">Tambah Data Persediaan</h5>
+                                            <h5 class="modal-title">Add Data Persediaan</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                         </div>
@@ -72,8 +72,8 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Tutup</button>
-                                            <button type="submit" class="btn btn-primary">Tambah</button>
+                                                data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Add</button>
                                         </div>
                                     </div>
                                 </form>
@@ -107,7 +107,7 @@
                                             </button>
                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                                 data-bs-target="#modal-delete-persediaan-{{ $persediaan->id }}">
-                                                <i class="bi bi-trash"></i> Hapus
+                                                <i class="bi bi-trash"></i> Delete
                                             </button>
                                         </td>
                                     </tr>
@@ -119,7 +119,7 @@
                                                 @method('DELETE')
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title">Hapus Data Persediaan</h5>
+                                                        <h5 class="modal-title">Delete Data Persediaan</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                             aria-label="Close"></button>
                                                     </div>
@@ -129,8 +129,8 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">tutup</button>
-                                                        <button type="submit" class="btn btn-primary">Hapus</button>
+                                                            data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary">Delete</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -182,7 +182,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Tutup</button>
+                                                            data-bs-dismiss="modal">Close</button>
                                                         <button type="submit" class="btn btn-primary">Edit</button>
                                                     </div>
                                                 </div>

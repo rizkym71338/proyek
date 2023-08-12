@@ -2,8 +2,8 @@
     <div class="d-flex align-items-center justify-content-between">
         <i class="bi bi-list toggle-sidebar-btn"></i>
         <a href="{{ url('/') }}" class="logo d-flex align-items-center ms-3">
-            <img src="assets/img/logo.png" alt="">
-            <span class="d-none d-lg-block">Proyek</span>
+            <img src="assets/img/desalogo.png" alt="">
+            <span class="d-none d-lg-block">BUMDes Jaya Sakti</span>
         </a>
     </div>
     <nav class="header-nav ms-auto">

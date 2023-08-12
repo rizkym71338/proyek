@@ -5,12 +5,12 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Login | Proyek</title>
+    <title>Login | BUMDes Jaya Sakti</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/desalogo.png" rel="icon">
     <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
@@ -43,10 +43,10 @@
                     <div class="row justify-content-center">
                         <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
+                            <img class="w-50" src="assets/img/desalogo.png" alt="">
                             <div class="d-flex justify-content-center py-4">
                                 <div class="logo d-flex align-items-center w-auto">
-                                    <img src="assets/img/logo.png" alt="">
-                                    <span class="d-none d-lg-block">Proyek</span>
+                                    <span class="d-none d-lg-block">BUMDes Jaya Sakti</span>
                                 </div>
                             </div><!-- End Logo -->
 

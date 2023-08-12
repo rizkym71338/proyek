@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="pagetitle">
-        <h1>Data Penjualan</h1>
+        <h1>Data Penjualan Produk</h1>
     </div>
 
     <section class="section">
@@ -12,7 +12,7 @@
                     <div class="card-body">
                         <button type="button" data-bs-toggle="modal" data-bs-target="#modal-add-penjualan"
                             class="btn btn-primary my-3">
-                            <i class="bi bi-plus me-1"></i> Tambah Data Penjualan
+                            <i class="bi bi-plus me-1"></i> Add Data Penjualan
                         </button>
                         @if (session()->has('success'))
                             <div class="alert alert-success alert-dismissible alert-info">
@@ -57,7 +57,7 @@
                                     @csrf
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title">Tambah Data Penjualan</h5>
+                                            <h5 class="modal-title">Add Data Penjualan</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                         </div>
@@ -90,7 +90,7 @@
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
                                                 data-bs-dismiss="modal">Tutup</button>
-                                            <button type="submit" class="btn btn-primary">Tambah</button>
+                                            <button type="submit" class="btn btn-primary">Add</button>
                                         </div>
                                     </div>
                                 </form>
@@ -126,7 +126,7 @@
                                             </button>
                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                                 data-bs-target="#modal-delete-penjualan-{{ $penjualan->id }}">
-                                                <i class="bi bi-trash"></i> Hapus
+                                                <i class="bi bi-trash"></i> Delete
                                             </button>
                                         </td>
                                     </tr>
@@ -138,7 +138,7 @@
                                                 @method('DELETE')
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title">Hapus Data penjualan</h5>
+                                                        <h5 class="modal-title">Delete Data penjualan</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                             aria-label="Close"></button>
                                                     </div>
@@ -148,8 +148,8 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">tutup</button>
-                                                        <button type="submit" class="btn btn-primary">Hapus</button>
+                                                            data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary">Delete</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -205,7 +205,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Tutup</button>
+                                                            data-bs-dismiss="modal">Close</button>
                                                         <button type="submit" class="btn btn-primary">Edit</button>
                                                     </div>
                                                 </div>

@@ -18,5 +18,29 @@ class UserSeeder extends Seeder
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
         ]);
+
+        DB::table('users')->insert([
+            'username' => "Penerimaan",
+            'role' => "Penerimaan",
+            'password' => Hash::make('rahasia'),
+            'created_at' => new DateTime(),
+            'updated_at' => new DateTime(),
+        ]);
+
+        DB::table('users')->insert([
+            'username' => "Penjualan",
+            'role' => "Penjualan",
+            'password' => Hash::make('rahasia'),
+            'created_at' => new DateTime(),
+            'updated_at' => new DateTime(),
+        ]);
+
+        DB::table('users')->insert([
+            'username' => "Persediaan",
+            'role' => "Persediaan",
+            'password' => Hash::make('rahasia'),
+            'created_at' => new DateTime(),
+            'updated_at' => new DateTime(),
+        ]);
     }
 }

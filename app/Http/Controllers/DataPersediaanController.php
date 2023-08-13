@@ -15,6 +15,7 @@ class DataPersediaanController extends Controller
             [
                 "title" => "Data Persediaan",
                 "persediaans" => Persediaan::latest()->get(),
+                "stok_produk" => Persediaan::latest()->first()->stok_produk,
             ],
         );
     }

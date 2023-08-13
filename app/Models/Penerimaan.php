@@ -15,7 +15,8 @@ class Penerimaan extends Model
         'penerima',
         'pengirim',
         'produk_masuk',
-        'satuan'
+        'satuan',
+        "persediaan_id"
     ];
 
     public function getTanggalAttribute($value)

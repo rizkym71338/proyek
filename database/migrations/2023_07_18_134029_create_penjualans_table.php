@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string("pembeli");
             $table->integer("produk_keluar");
             $table->string("satuan");
+            $table->string("persediaan_id");
             $table->timestamps();
         });
     }

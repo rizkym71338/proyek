@@ -37,10 +37,13 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php
+                                    use Carbon\Carbon;
+                                @endphp
                                 @foreach ($persediaans as $persediaan)
                                     <tr>
                                         <th scope="row">{{ $loop->iteration }}</th>
-                                        <td>{{ $persediaan->tanggal }}</td>
+                                        <td>{{ Carbon::parse($persediaan->tanggal)->format('d-m-Y') }}</td>
                                         <td>{{ $persediaan->produk_masuk }}</td>
                                         <td>{{ $persediaan->produk_keluar }}</td>
                                         <td>
@@ -58,9 +61,7 @@
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h4 class="modal-title">Detail Persediaan Pada Tanggal
-                                                        {{ $persediaan->tanggal }}</h4>
-                                                    <button type="button" class="btn-close"
-                                                        data-bs-dismiss="modal"></button>
+                                                        {{ Carbon::parse($persediaan->tanggal)->format('d-m-Y') }}</h4>
                                                 </div>
                                                 <div class="modal-body">
                                                     <div class="h4">Catatan Produk Masuk</div>
@@ -72,21 +73,45 @@
                                                             <div style="flex: 1; padding: 0 8px;">Produk Masuk</div>
                                                             <div style="flex: 1; padding: 0 8px;">satuan</div>
                                                         </div>
+                                                        @php
+                                                            $total_masuk = 0;
+                                                        @endphp
                                                         @foreach ($penerimaans as $penerimaan)
                                                             @if ($penerimaan->tanggal == $persediaan->tanggal)
+                                                                @php
+                                                                    $total_masuk += $penerimaan->produk_masuk;
+                                                                @endphp
                                                                 <div
                                                                     style="display: flex; justify-content: space-between; border-bottom: 1px solid #ccc; padding: 8px 0;">
                                                                     <div style="flex: 1; padding: 0 8px;">
-                                                                        {{ $penerimaan->penerima }}</div>
+                                                                        {{ $penerimaan->penerima }}
+                                                                    </div>
                                                                     <div style="flex: 1; padding: 0 8px;">
-                                                                        {{ $penerimaan->pengirim }}</div>
+                                                                        {{ $penerimaan->pengirim }}
+                                                                    </div>
                                                                     <div style="flex: 1; padding: 0 8px;">
-                                                                        {{ $penerimaan->produk_masuk }}</div>
+                                                                        {{ $penerimaan->produk_masuk }}
+                                                                    </div>
                                                                     <div style="flex: 1; padding: 0 8px;">
-                                                                        {{ $penerimaan->satuan }}</div>
+                                                                        {{ $penerimaan->satuan }}
+                                                                    </div>
                                                                 </div>
                                                             @endif
                                                         @endforeach
+                                                        <div
+                                                            style="display: flex; justify-content: space-between; border-bottom: 1px solid #ccc; padding: 8px 0;">
+                                                            <div style="flex: 1; padding: 0 8px;">
+                                                                Total
+                                                            </div>
+                                                            <div style="flex: 1; padding: 0 8px;">
+                                                            </div>
+                                                            <div style="flex: 1; padding: 0 8px;">
+                                                                {{ $total_masuk }}
+                                                            </div>
+                                                            <div style="flex: 1; padding: 0 8px;">
+                                                                Pack
+                                                            </div>
+                                                        </div>
                                                     </div><br>
                                                     <div class="h4">Catatan Produk Keluar</div>
                                                     <div style="display: flex; flex-direction: column;">
@@ -97,8 +122,14 @@
                                                             <div style="flex: 1; padding: 0 8px;">Produk Keluar</div>
                                                             <div style="flex: 1; padding: 0 8px;">satuan</div>
                                                         </div>
+                                                        @php
+                                                            $total_keluar = 0;
+                                                        @endphp
                                                         @foreach ($penjualans as $penjualan)
                                                             @if ($penjualan->tanggal == $persediaan->tanggal)
+                                                                @php
+                                                                    $total_keluar += $penjualan->produk_masuk;
+                                                                @endphp
                                                                 <div
                                                                     style="display: flex; justify-content: space-between; border-bottom: 1px solid #ccc; padding: 8px 0;">
                                                                     <div style="flex: 1; padding: 0 8px;">
@@ -112,6 +143,20 @@
                                                                 </div>
                                                             @endif
                                                         @endforeach
+                                                        <div
+                                                            style="display: flex; justify-content: space-between; border-bottom: 1px solid #ccc; padding: 8px 0;">
+                                                            <div style="flex: 1; padding: 0 8px;">
+                                                                Total
+                                                            </div>
+                                                            <div style="flex: 1; padding: 0 8px;">
+                                                            </div>
+                                                            <div style="flex: 1; padding: 0 8px;">
+                                                                {{ $total_keluar }}
+                                                            </div>
+                                                            <div style="flex: 1; padding: 0 8px;">
+                                                                Pack
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
@@ -121,7 +166,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- Modal Detail Produk Masuk --}}
+                                    {{-- Modal Detail Produk Masuk --}})
                                 @endforeach
                             </tbody>
                         </table>

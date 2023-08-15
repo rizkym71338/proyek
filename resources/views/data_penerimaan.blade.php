@@ -10,7 +10,7 @@
                     <div class="card-body">
                         <button type="button" data-bs-toggle="modal" data-bs-target="#modal-add-penerimaan"
                             class="btn btn-primary my-3">
-                            <i class="bi bi-plus me-1"></i> Tambah Data Penerimaan 
+                            <i class="bi bi-plus me-1"></i> Tambah Data Penerimaan
                         </button>
                         @if (session()->has('success'))
                             <div class="alert alert-success alert-dismissible alert-info">
@@ -105,10 +105,13 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php
+                                    use Carbon\Carbon;
+                                @endphp
                                 @foreach ($penerimaans as $penerimaan)
                                     <tr>
                                         <th scope="row">{{ $loop->iteration }}</th>
-                                        <td>{{ $penerimaan->tanggal }}</td>
+                                        <td>{{ Carbon::parse($penerimaan->tanggal)->format('d-m-Y') }}</td>
                                         <td>{{ $penerimaan->penerima }}</td>
                                         <td>{{ $penerimaan->pengirim }}</td>
                                         <td>{{ $penerimaan->produk_masuk }}</td>

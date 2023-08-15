@@ -74,7 +74,24 @@ class DataPenjualanController extends Controller
             $produkKeluar = $validated["produk_keluar"];
             $persediaan = Persediaan::where("id", $penjualan->persediaan_id)->first();
             if ($produkKeluar > $produk->stok) return redirect('/data-penjualan')->with("error", "Stok Produk Tidak Cukup Untuk Melakukan Pembaruan Penjualan!");
-            $persediaan->update(["produk_keluar" => $persediaan->produk_keluar + ($produkKeluar - $penjualan->produk_keluar)]);
+            if ($validated["tanggal"] == $penjualan->tanggal) {
+                $persediaan->update(["produk_keluar" => $persediaan->produk_keluar + ($produkKeluar - $penjualan->produk_keluar), "stok_produk" => $produk->stok - ($produkKeluar - $penjualan->produk_keluar)]);
+            } else {
+                $persediaan->update(["produk_keluar" => $persediaan->produk_keluar - $penjualan->produk_keluar, "stok_produk" => $produk->stok - ($produkKeluar - $penjualan->produk_keluar)]);
+                if (Persediaan::where("tanggal", $validated["tanggal"])->first()) {
+                    $persediaan = Persediaan::where("tanggal", $validated["tanggal"])->first();
+                    $persediaan->update(["produk_keluar" => $persediaan->produk_keluar + $produkKeluar, "stok_produk" => $produk->stok - ($produkKeluar - $penjualan->produk_keluar)]);
+                } else {
+                    $dataPost = [
+                        "tanggal" => $validated["tanggal"],
+                        'produk_masuk' => 0,
+                        'produk_keluar' => $produkKeluar,
+                        "stok_produk" => $produk->stok - $produkKeluar
+                    ];
+                    $persediaan = Persediaan::create($dataPost);
+                }
+            }
+            $validated["persediaan_id"] = $persediaan->id;
             $produk->update(["stok" => $produk->stok - ($produkKeluar - $penjualan->produk_keluar)]);
             Penjualan::where('id', $penjualan->id)->update($validated);
             return redirect('/data-penjualan')->with("success", "Berhasil Mengubah Data penjualan!");

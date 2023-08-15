@@ -66,7 +66,24 @@ class DataPenerimaanController extends Controller
             $produk = Produk::where("nama", "Telur")->first();
             $produkMasuk = $validated["produk_masuk"];
             $persediaan = Persediaan::where("id", $penerimaan->persediaan_id)->first();
-            $persediaan->update(["produk_masuk" => $persediaan->produk_masuk + ($produkMasuk - $penerimaan->produk_masuk), "stok_produk" => $produk->stok + ($produkMasuk - $penerimaan->produk_masuk)]);
+            if ($validated["tanggal"] == $penerimaan->tanggal) {
+                $persediaan->update(["produk_masuk" => $persediaan->produk_masuk + ($produkMasuk - $penerimaan->produk_masuk), "stok_produk" => $produk->stok + ($produkMasuk - $penerimaan->produk_masuk)]);
+            } else {
+                $persediaan->update(["produk_masuk" => $persediaan->produk_masuk - $penerimaan->produk_masuk, "stok_produk" => $produk->stok + ($produkMasuk - $penerimaan->produk_masuk)]);
+                if (Persediaan::where("tanggal", $validated["tanggal"])->first()) {
+                    $persediaan = Persediaan::where("tanggal", $validated["tanggal"])->first();
+                    $persediaan->update(["produk_masuk" => $persediaan->produk_masuk + $produkMasuk, "stok_produk" => $produk->stok + ($produkMasuk - $penerimaan->produk_masuk)]);
+                } else {
+                    $dataPost = [
+                        "tanggal" => $validated["tanggal"],
+                        'produk_masuk' => $produkMasuk,
+                        'produk_keluar' => 0,
+                        "stok_produk" => $produk->stok + $produkMasuk,
+                    ];
+                    $persediaan = Persediaan::create($dataPost);
+                }
+            }
+            $validated["persediaan_id"] = $persediaan->id;
             $produk->update(["stok" => $produk->stok + ($produkMasuk - $penerimaan->produk_masuk)]);
             Penerimaan::where('id', $penerimaan->id)->update($validated);
             return redirect('/data-penerimaan')->with("success", "Berhasil Mengubah Data Penerimaan!");

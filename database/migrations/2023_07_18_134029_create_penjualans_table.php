@@ -1,8 +1,8 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('penjualans', function (Blueprint $table) {
             $table->id();
-            $table->timestamp("tanggal")->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->string("tanggal")->default(Carbon::now()->format('Y-m-d'));
             $table->string("no_kwitansi");
             $table->string("pembeli");
             $table->integer("produk_keluar");

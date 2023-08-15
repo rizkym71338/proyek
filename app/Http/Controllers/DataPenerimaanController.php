@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Penerimaan;
 use App\Models\Persediaan;
+use App\Models\Produk;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DataPenerimaanController extends Controller
@@ -24,18 +26,26 @@ class DataPenerimaanController extends Controller
         ]);
 
         try {
-            $persediaan = Persediaan::latest()->first();
+            $produk = Produk::where("nama", "Telur")->first();
+            $currentDate = Carbon::now()->format('Y-m-d');
+            $persediaan = Persediaan::where("tanggal", $currentDate)->first();
             $produkMasuk = $validated["produk_masuk"];
-            $dataPost = [
-                'produk_masuk' => $produkMasuk,
-                'produk_keluar' => 0,
-                'stok_produk' => $persediaan ? $persediaan->stok_produk + $produkMasuk : $produkMasuk,
-            ];
-            $persediaan = Persediaan::create($dataPost);
+            if ($persediaan) {
+                $persediaan->update(["produk_masuk" => $persediaan->produk_masuk + $produkMasuk, "stok_produk" => $produk->stok + $produkMasuk]);
+            } else {
+                $dataPost = [
+                    'produk_masuk' => $produkMasuk,
+                    'produk_keluar' => 0,
+                    "stok_produk" => $produk->stok + $produkMasuk,
+                ];
+                $persediaan = Persediaan::create($dataPost);
+            }
             $validated["persediaan_id"] = $persediaan->id;
+            $produk->update(["stok" => $produk->stok + $produkMasuk]);
             Penerimaan::create($validated);
             return redirect('/data-penerimaan')->with("success", "Berhasil Menambahkan Data Penerimaan!");
         } catch (\Throwable $th) {
+            dd($th);
             return redirect('/data-penerimaan')->with("error", "Gagal Menambahkan Data Penerimaan!");
         }
     }
@@ -50,18 +60,14 @@ class DataPenerimaanController extends Controller
             'produk_masuk' => 'required',
             'satuan' => 'required',
         ]);
+        $validated["tanggal"] = Carbon::parse($validated["tanggal"])->format('Y-m-d');
+
         try {
-            $persediaan = Persediaan::latest()->first();
+            $produk = Produk::where("nama", "Telur")->first();
             $produkMasuk = $validated["produk_masuk"];
-            $dataPost = [
-                'produk_masuk' => $produkMasuk,
-                'produk_keluar' => 0,
-                'stok_produk' => $persediaan->stok_produk - $penerimaan->produk_masuk + $produkMasuk,
-            ];
             $persediaan = Persediaan::where("id", $penerimaan->persediaan_id)->first();
-            Persediaan::destroy($persediaan->id);
-            $persediaan = Persediaan::create($dataPost);
-            $validated["persediaan_id"] = $persediaan->id;
+            $persediaan->update(["produk_masuk" => $persediaan->produk_masuk + ($produkMasuk - $penerimaan->produk_masuk), "stok_produk" => $produk->stok + ($produkMasuk - $penerimaan->produk_masuk)]);
+            $produk->update(["stok" => $produk->stok + ($produkMasuk - $penerimaan->produk_masuk)]);
             Penerimaan::where('id', $penerimaan->id)->update($validated);
             return redirect('/data-penerimaan')->with("success", "Berhasil Mengubah Data Penerimaan!");
         } catch (\Throwable $th) {
@@ -72,6 +78,10 @@ class DataPenerimaanController extends Controller
     public function destroy(Penerimaan $penerimaan)
     {
         try {
+            $produk = Produk::where("nama", "Telur")->first();
+            $persediaan = Persediaan::where("id", $penerimaan->persediaan_id)->first();
+            $produk->update(["stok" => $produk->stok - $penerimaan->produk_masuk]);
+            $persediaan->update(["produk_masuk" => $persediaan->produk_masuk - $penerimaan->produk_masuk, "stok_produk" => $produk->stok - $penerimaan->produk_masuk]);
             Penerimaan::destroy($penerimaan->id);
             return redirect('/data-penerimaan')->with("success", "Berhasil Menghapus Data Penerimaan!");
         } catch (\Throwable $th) {

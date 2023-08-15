@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Penjualan;
 use App\Models\Persediaan;
+use App\Models\Produk;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DataPenjualanController extends Controller
@@ -16,7 +18,7 @@ class DataPenjualanController extends Controller
             [
                 "title" => "Data Penjualan",
                 "penjualans" => Penjualan::latest()->get(),
-                "persediaan" => Persediaan::latest("tanggal")->first()
+                "stok_produk" => Produk::where('nama', "Telur")->first()->stok,
             ],
         );
     }
@@ -31,17 +33,23 @@ class DataPenjualanController extends Controller
         ]);
 
         try {
-            $persediaan = Persediaan::latest()->first();
+            $produk = Produk::where("nama", "Telur")->first();
+            $currentDate = Carbon::now()->format('Y-m-d');
+            $persediaan = Persediaan::where("tanggal", $currentDate)->first();
             $produkKeluar = $validated["produk_keluar"];
-            if (!$persediaan) return redirect('/data-penjualan')->with("error", "Gagal Menambahkan Data penjualan!");
-            if ($produkKeluar > $persediaan->stok_produk) return redirect('/data-penjualan')->with("error", "Stok Produk Tidak Cukup Untuk Melakukan Penjualan!");
-            $dataPost = [
-                'produk_masuk' => 0,
-                'produk_keluar' => $produkKeluar,
-                'stok_produk' => $persediaan->stok_produk - $produkKeluar,
-            ];
-            $persediaan = Persediaan::create($dataPost);
+            if ($produkKeluar > $produk->stok) return redirect('/data-penjualan')->with("error", "Stok Produk Tidak Cukup Untuk Melakukan Penjualan!");
+            if ($persediaan) {
+                $persediaan->update(["produk_keluar" => $persediaan->produk_keluar + $produkKeluar, "stok_produk" => $produk->stok - $produkKeluar]);
+            } else {
+                $dataPost = [
+                    'produk_masuk' => 0,
+                    'produk_keluar' => $produkKeluar,
+                    "stok_produk" => $produk->stok - $produkKeluar
+                ];
+                $persediaan = Persediaan::create($dataPost);
+            }
             $validated["persediaan_id"] = $persediaan->id;
+            $produk->update(["stok" => $produk->stok - $produkKeluar]);
             Penjualan::create($validated);
             return redirect('/data-penjualan')->with("success", "Berhasil Menambahkan Data penjualan!");
         } catch (\Throwable $th) {
@@ -59,20 +67,15 @@ class DataPenjualanController extends Controller
             'produk_keluar' => 'required',
             'satuan' => 'required',
         ]);
+        $validated["tanggal"] = Carbon::parse($validated["tanggal"])->format('Y-m-d');
+
         try {
-            $persediaan = Persediaan::latest()->first();
+            $produk = Produk::where("nama", "Telur")->first();
             $produkKeluar = $validated["produk_keluar"];
-            if (!$persediaan) return redirect('/data-penjualan')->with("error", "Gagal Menambahkan Data penjualan!");
-            if ($produkKeluar > $persediaan->stok_produk) return redirect('/data-penjualan')->with("error", "Stok Produk Tidak Cukup Untuk Melakukan Pembaruan Penjualan!");
-            $dataPost = [
-                'produk_masuk' => 0,
-                'produk_keluar' => $produkKeluar,
-                'stok_produk' => $persediaan->stok_produk + $persediaan->produk_keluar - $produkKeluar,
-            ];
             $persediaan = Persediaan::where("id", $penjualan->persediaan_id)->first();
-            Persediaan::destroy($persediaan->id);
-            $persediaan = Persediaan::create($dataPost);
-            $validated["persediaan_id"] = $persediaan->id;
+            if ($produkKeluar > $produk->stok) return redirect('/data-penjualan')->with("error", "Stok Produk Tidak Cukup Untuk Melakukan Pembaruan Penjualan!");
+            $persediaan->update(["produk_keluar" => $persediaan->produk_keluar + ($produkKeluar - $penjualan->produk_keluar)]);
+            $produk->update(["stok" => $produk->stok - ($produkKeluar - $penjualan->produk_keluar)]);
             Penjualan::where('id', $penjualan->id)->update($validated);
             return redirect('/data-penjualan')->with("success", "Berhasil Mengubah Data penjualan!");
         } catch (\Throwable $th) {
@@ -83,6 +86,10 @@ class DataPenjualanController extends Controller
     public function destroy(Penjualan $penjualan)
     {
         try {
+            $produk = Produk::where("nama", "Telur")->first();
+            $persediaan = Persediaan::where("id", $penjualan->persediaan_id)->first();
+            $produk->update(["stok" => $produk->stok + $penjualan->produk_keluar]);
+            $persediaan->update(["produk_keluar" => $persediaan->produk_keluar - $penjualan->produk_keluar, "stok_produk" => $produk->stok + $penjualan->produk_keluar]);
             Penjualan::destroy($penjualan->id);
             return redirect('/data-penjualan')->with("success", "Berhasil Menghapus Data penjualan!");
         } catch (\Throwable $th) {

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,13 +11,8 @@ class Persediaan extends Model
 
     protected $fillable = [
         'tanggal',
-        'stok_produk',
         'produk_masuk',
         'produk_keluar',
+        'stok_produk'
     ];
-
-    public function getTanggalAttribute($value)
-    {
-        return Carbon::parse($value)->format('Y-m-d');
-    }
 }

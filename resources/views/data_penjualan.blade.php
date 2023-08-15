@@ -64,7 +64,7 @@
                                         <div class="modal-body">
                                             <div class="alert alert-primary alert-dismissible alert-info">
                                                 Stok Produk Tersedia Saat Ini Adalah
-                                                {{ $persediaan->stok_produk ?? 0 }} Pack
+                                                {{ $stok_produk }} Pack
                                             </div>
                                             <div class="col-12 mb-3">
                                                 <label for="no_kwitansi" class="form-label">No Kwitansi</label>

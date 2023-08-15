@@ -1,6 +1,5 @@
 <?php
 
-use Carbon\Carbon;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('persediaans', function (Blueprint $table) {
+        Schema::create('produks', function (Blueprint $table) {
             $table->id();
-            $table->string("tanggal")->default(Carbon::now()->format('Y-m-d'));
-            $table->string("produk_masuk");
-            $table->integer("produk_keluar");
-            $table->integer("stok_produk");
+            $table->string("nama");
+            $table->integer("stok");
             $table->timestamps();
         });
     }
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('persediaans');
+        Schema::dropIfExists('produks');
     }
 };

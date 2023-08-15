@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Penerimaan;
+use App\Models\Penjualan;
 use App\Models\Persediaan;
+use App\Models\Produk;
 use Illuminate\Http\Request;
 
 class DataPersediaanController extends Controller
@@ -15,7 +18,9 @@ class DataPersediaanController extends Controller
             [
                 "title" => "Data Persediaan",
                 "persediaans" => Persediaan::latest()->get(),
-                "stok_produk" => Persediaan::latest()->first()->stok_produk ?? "0",
+                "penerimaans" => Penerimaan::latest()->get(),
+                "penjualans" => Penjualan::latest()->get(),
+                "stok_produk" => Produk::where('nama', "Telur")->first()->stok,
             ],
         );
     }

@@ -17,7 +17,7 @@
                             </div>
                             <div class="col-3">
                                 <input type="date" class="form-control" id="end_date" name="end_date"
-                                    value="{{ $start_date }}" required>
+                                    value="{{ $end_date }}" required>
                             </div>
                             <div class="col-3">
                                 <button type="submit" class="btn btn-primary">
@@ -47,10 +47,13 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php
+                                    use Carbon\Carbon;
+                                @endphp
                                 @foreach ($penerimaans as $penerimaan)
                                     <tr>
                                         <th scope="row">{{ $loop->iteration }}</th>
-                                        <td>{{ $penerimaan->tanggal }}</td>
+                                        <td>{{ Carbon::parse($penerimaan->tanggal)->format('d-m-Y') }}</td>
                                         <td>{{ $penerimaan->penerima }}</td>
                                         <td>{{ $penerimaan->pengirim }}</td>
                                         <td>{{ $penerimaan->produk_masuk }}</td>

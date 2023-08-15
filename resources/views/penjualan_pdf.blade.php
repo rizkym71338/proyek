@@ -58,10 +58,13 @@
                 </tr>
             </thead>
             <tbody>
+                @php
+                    use Carbon\Carbon;
+                @endphp
                 @foreach ($penjualans as $penjualan)
                     <tr>
                         <th>{{ $loop->iteration }}</th>
-                        <td>{{ $penjualan->tanggal }}</td>
+                        <td>{{ Carbon::parse($penjualan->tanggal)->format('d-m-Y') }}</td>
                         <td>{{ $penjualan->no_kwitansi }}</td>
                         <td>{{ $penjualan->pembeli }}</td>
                         <td>{{ $penjualan->produk_keluar }}</td>

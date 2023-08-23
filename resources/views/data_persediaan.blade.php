@@ -128,7 +128,7 @@
                                                         @foreach ($penjualans as $penjualan)
                                                             @if ($penjualan->tanggal == $persediaan->tanggal)
                                                                 @php
-                                                                    $total_keluar += $penjualan->produk_masuk;
+                                                                    $total_keluar += $penjualan->produk_keluar;
                                                                 @endphp
                                                                 <div
                                                                     style="display: flex; justify-content: space-between; border-bottom: 1px solid #ccc; padding: 8px 0;">

@@ -166,7 +166,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- Modal Detail Produk Masuk --}})
+                                    {{-- Modal Detail Produk Masuk --}}
                                 @endforeach
                             </tbody>
                         </table>

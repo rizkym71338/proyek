@@ -19,11 +19,13 @@ class DataPenerimaanController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'tanggal' => 'required',
             'penerima' => 'required',
             'pengirim' => 'required',
             'produk_masuk' => 'required',
             'satuan' => 'required',
         ]);
+        $validated["tanggal"] = Carbon::parse($validated["tanggal"])->format('Y-m-d');
 
         try {
             $produk = Produk::where("nama", "Telur")->first();

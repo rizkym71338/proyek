@@ -26,11 +26,13 @@ class DataPenjualanController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'tanggal' => 'required',
             'no_kwitansi' => 'required',
             'pembeli' => 'required',
             'produk_keluar' => 'required',
             'satuan' => 'required',
         ]);
+        $validated["tanggal"] = Carbon::parse($validated["tanggal"])->format('Y-m-d');
 
         try {
             $produk = Produk::where("nama", "Telur")->first();
@@ -73,7 +75,7 @@ class DataPenjualanController extends Controller
             $produk = Produk::where("nama", "Telur")->first();
             $produkKeluar = $validated["produk_keluar"];
             $persediaan = Persediaan::where("id", $penjualan->persediaan_id)->first();
-            if ($produkKeluar > $produk->stok) return redirect('/data-penjualan')->with("error", "Stok Produk Tidak Cukup Untuk Melakukan Pembaruan Penjualan!");
+            if ($produkKeluar > ($produk->stok + $penjualan->produk_keluar)) return redirect('/data-penjualan')->with("error", "Stok Produk Tidak Cukup Untuk Melakukan Pembaruan Penjualan!");
             if ($validated["tanggal"] == $penjualan->tanggal) {
                 $persediaan->update(["produk_keluar" => $persediaan->produk_keluar + ($produkKeluar - $penjualan->produk_keluar), "stok_produk" => $produk->stok - ($produkKeluar - $penjualan->produk_keluar)]);
             } else {

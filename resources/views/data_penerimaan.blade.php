@@ -60,6 +60,11 @@
                                                 aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
+                                            <div class="col-12 mb-3 d-none">
+                                                <label for="tanggal" class="form-label">Tanggal</label>
+                                                <input type="date" class="form-control" id="tanggal" name="tanggal"
+                                                    value="{{ date('Y-m-d') }}" required>
+                                            </div>
                                             <div class="col-12 mb-3">
                                                 <label for="penerima" class="form-label">Penerima</label>
                                                 <input type="text" class="form-control" id="penerima" name="penerima"
